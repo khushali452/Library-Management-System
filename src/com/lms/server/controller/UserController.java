@@ -37,7 +37,7 @@ public class UserController {
 				UserEntryAuth.setActiveUser(user.getName());
 				UserEntryAuth.setExisted(user.getName());
 				message = "Account Generated";
-				System.out.println(UserEntryAuth.getExistedUser());
+//				System.out.println(UserEntryAuth.getExistedUser());
 				printWriter.println(message);
 			} else {
 				message = "Account creation error";
@@ -59,20 +59,26 @@ public class UserController {
 			String password = bufferedReader.readLine();
 			String message = null;
 
-			User user = new User(name, password, UserController.cache.getUserBooks().get(name));
-
-			if (!CacheMemory.checkExistedUser(UserEntryAuth.getActiveUser(), user.getName())
-					&& !CacheMemory.checkActiveUser(UserEntryAuth.getActiveUser(), user.getName())) {
+			
+			User user = null;
+			System.out.println(CacheMemory.checkExistedUser(UserEntryAuth.getExistedUser(), name));
+			System.out.println(CacheMemory.checkActiveUser(UserEntryAuth.getActiveUser(), name));
+//			
+			if (CacheMemory.checkExistedUser(UserEntryAuth.getExistedUser(), name) == true
+					&& CacheMemory.checkActiveUser(UserEntryAuth.getActiveUser(), name) == false) {
+				user = new User(name, password, UserController.cache.getUserBooks().get(name));
 				UserEntryAuth.setActiveUser(name);
 				message = "Login Successful";
 				printWriter.println(message);
 			} else {
-				printWriter.println("Login error");
+				message = "Login error";
+				printWriter.println(message);
 			}
 			if (message.equals("Login Successful")) {
 				OperationsController operation = new OperationsController();
 				operation.serverOperations(inputStream, bufferedReader, outputStream, printWriter, user);
 			}
+			
 		} catch (Exception e) {
 
 		}

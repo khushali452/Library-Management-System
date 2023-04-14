@@ -34,10 +34,10 @@ public class ThreadHandler implements Runnable {
 				switch(clientChoice){
 				case "1":
 					userController.create(inputStream, bufferedReader, outputStream, printWriter);
-					break;
+					
 				case "2":
 					userController.login(inputStream, bufferedReader, outputStream, printWriter);
-					break;
+					
 				}
 			}
 		} catch (IOException e) {

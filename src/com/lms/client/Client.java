@@ -24,15 +24,15 @@ public class Client {
 				System.out.println("Press any number: \n1: Create an account \n2: Log In");
 				System.out.println("----------------------------------------------------------");
 				String choice = userInput.readLine();
-				
+				boolean flag = false;
 				switch(choice) {
 				case "1":
-					UserController.create(outputStream, printWriter, userInput, serverResponse, socket);
-					running = false;
+					flag = UserController.create(outputStream, printWriter, userInput, serverResponse, socket);
+					running = flag == true ? running : false;
 					break;
 				case "2":
-					UserController.login(outputStream, printWriter, userInput, serverResponse, socket);
-					running = false;
+					flag = UserController.login(outputStream, printWriter, userInput, serverResponse, socket);
+					running = flag == true ? running : false;
 					break;
 				default:
 					System.out.println("Invalid choice");

@@ -9,13 +9,12 @@ import com.lms.server.cache.CacheBooksProfile;
 import com.lms.server.model.User;
 import com.lms.server.repository.BookData;
 
-public class OperationInterfaceImpl implements OperationInterface{
+public class OperationInterfaceImpl {
 	BookData booksData;
 	public OperationInterfaceImpl() {
 		booksData = new BookData();
 	}
 
-	@Override
 	public boolean issueBook(String nameOfBook, User user) {
 		Map<String, Integer> availBooks = booksData.getBooks();
 		int copies = availBooks.get(nameOfBook);
@@ -31,7 +30,7 @@ public class OperationInterfaceImpl implements OperationInterface{
 		return true;
 	}
 
-	@Override
+	
 	public boolean returnBook(String nameOfBook, User user) {
 		Map<String, Integer> availBooks = booksData.getBooks();
 		int copies = availBooks.get(nameOfBook);
@@ -44,12 +43,12 @@ public class OperationInterfaceImpl implements OperationInterface{
 		
 	}
 
-	@Override
+	
 	public List<String> viewProfile(User user) {
 		return user.getIssuedBooks();
 	}
 
-	@Override
+	
 	public List<String> viewAvailabaleBooks() {
 		List<String> listOfAvailBooks = new ArrayList<String>();
 		for(String keys: booksData.getBooks().keySet()) {

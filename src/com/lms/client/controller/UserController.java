@@ -9,9 +9,8 @@ import java.net.Socket;
 import com.lms.client.utils.Validate;
 
 public class UserController {
-	private String message;
 
-	public static void login(OutputStream outputStream, PrintWriter printWriter, BufferedReader userInput,
+	public static boolean login(OutputStream outputStream, PrintWriter printWriter, BufferedReader userInput,
 			BufferedReader serverResponse, Socket socket) {
 		try {
 			String name;
@@ -35,14 +34,6 @@ public class UserController {
 					System.out.println("      Password length should be atleast 4");
 				}
 			}
-
-			// Validate Logic ------> Pending
-//			boolean nameValidate = valid.checkName(name.trim());
-//			boolean pwdValidate = valid.checkPwd(password.trim());
-//			
-//			while(nameValidate == false || nameValidate == false) {
-//				
-//			}
 
 			printWriter.println("2");
 			printWriter.println(name);
@@ -55,12 +46,18 @@ public class UserController {
 				OperationsController operation = new OperationsController();
 				operation.clientOperations(outputStream, printWriter, userInput, serverResponse, socket);
 			}
+			else if(accountMessage.equals("Login error")) {
+				return true;
+			}
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
-	public static void create(OutputStream outputStream, PrintWriter printWriter, BufferedReader userInput,
+	public static boolean create(OutputStream outputStream, PrintWriter printWriter, BufferedReader userInput,
 			BufferedReader serverResponse, Socket socket) {
 
 		try {
@@ -86,7 +83,6 @@ public class UserController {
 				}
 			}
 
-			// Validate Logic ------> Pending
 
 			printWriter.println("1");
 			printWriter.println(name);
@@ -99,8 +95,13 @@ public class UserController {
 				OperationsController operation = new OperationsController();
 				operation.clientOperations(outputStream, printWriter, userInput, serverResponse, socket);
 			}
+			else if(accountMessage.equals("Account creation error")) {
+				return true;
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 }
